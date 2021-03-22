@@ -16,15 +16,14 @@ const { ObjectPassThrough } = (() => {
     /** @typedef ObjectPassThroughConstructor @type {import('../types').ObjectPassThroughConstructor} */
 
     /** @type {ObjectPassThroughConstructor}  */
-    const ObjectPassThrough = (options) => {
+    const ObjectPassThrough = (block, options) => {
 
         /** @type {ObjectPassThroughConstructorOptions}  */
         const _options = {};
-        _options.allowHalfOpen = options.allowHalfOpen;
-        _options.readableHighWaterMark = options.readableHighWaterMark;
-        _options.writableHighWaterMark = options.writableHighWaterMark;
-        _options.writableCorked = options.writableCorked;
-        _options.callback = options.callback;
+        _options.allowHalfOpen = options?.allowHalfOpen;
+        _options.readableHighWaterMark = options?.readableHighWaterMark;
+        _options.writableHighWaterMark = options?.writableHighWaterMark;
+        _options.writableCorked = options?.writableCorked;
 
         /** @type {_ObjectPassThrough}  */
         const _it = {};
@@ -39,7 +38,7 @@ const { ObjectPassThrough } = (() => {
             writableHighWaterMark: _options.writableHighWaterMark,
             writableCorked: _options.writableCorked,
             transform: async (chunk, encoding, callback) => {
-                await _options.callback(chunk);
+                await block(chunk);
                 it.push(chunk);
                 callback();
             }

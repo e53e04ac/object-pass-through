@@ -11,9 +11,6 @@ type ObjectPassThroughConstructorOptions = {
     readableHighWaterMark?: number;
     writableHighWaterMark?: number;
     writableCorked?: number;
-    callback: {
-        (input: any): Promise<void>;
-    };
 };
 
 type _ObjectPassThrough = {
@@ -29,8 +26,12 @@ type ObjectPassThrough = stream.Transform & {
     };
 };
 
+type ObjectPassThroughBlock = {
+    (input: any): Promise<void>;
+};
+
 type ObjectPassThroughConstructor = {
-    (options: ObjectPassThroughConstructorOptions): ObjectPassThrough;
+    (block: ObjectPassThroughBlock, options?: ObjectPassThroughConstructorOptions): ObjectPassThrough;
 };
 
 export const ObjectPassThrough: ObjectPassThroughConstructor;

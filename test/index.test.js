@@ -16,11 +16,7 @@ describe('index.js', async () => {
 
     it('coverage', async () => {
 
-        const objectPassThrough = ObjectPassThrough({
-            callback: async (input) => {
-
-            }
-        });
+        const objectPassThrough = ObjectPassThrough(async (x) => { });
         objectPassThrough.ObjectPassThroughConstructorOptions();
         objectPassThrough._ObjectPassThrough();
 
